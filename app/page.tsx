@@ -2,9 +2,16 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
+interface NewsSummary {
+  id: number;
+  title: string;
+  summary: string;
+}
+
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [newsSummaries, setNewsSummaries] = useState<NewsSummary[]>([]);
 
   // Mock data for autocomplete suggestions
   const drugList = [
@@ -26,6 +33,13 @@ export default function Home() {
       setSuggestions([]);
     }
   }, [searchTerm]);
+
+  useEffect(() => {
+    fetch("/api/py/news-summary")
+      .then((response) => response.json())
+      .then((data) => setNewsSummaries(data.data))
+      .catch((error) => console.error("Error fetching news summaries:", error));
+  }, []);
 
   return (
     <div className="min-h-screen bg-base-200">
@@ -83,25 +97,110 @@ export default function Home() {
                   {/* Placeholder for chart */}
                 </div>
                 <p className="text-sm mb-4">
-                  Ongoing concerns about the availability and safe use of
-                  Adderall, especially in high doses.
+                  Analysis of negative comments related to Adderall side effects
+                  from Reddit.
                 </p>
 
-                <h4 className="font-semibold mb-2">
-                  Insomnia <span className="text-primary">Metric</span>
-                </h4>
-                <blockquote className="border-l-4 border-base-300 pl-4 mb-4 italic text-sm">
-                  &ldquo;I can&apos;t sleep at all when I take Adderall, even if
-                  I take it early in the day.&rdquo;
-                </blockquote>
-                <blockquote className="border-l-4 border-base-300 pl-4 mb-4 italic text-sm">
-                  &ldquo;Lack of sleep is making me feel exhausted all the
-                  time.&rdquo;
-                </blockquote>
-                <p className="text-sm mb-4">
-                  Analysis: Many users report difficulties with sleep,
-                  indicating a significant negative impact on their well-being.
-                </p>
+                {[
+                  { side_effect: "Somnolence", count: 4 },
+                  { side_effect: "Drug Ineffective", count: 3 },
+                  { side_effect: "Feeling Abnormal", count: 3 },
+                  { side_effect: "Headache", count: 1 },
+                  { side_effect: "Fatigue", count: 1 },
+                  { side_effect: "Disturbance In Attention", count: 1 },
+                  { side_effect: "Nausea", count: 1 },
+                  { side_effect: "Depression", count: 1 },
+                  { side_effect: "Product Quality Issue", count: 1 },
+                ].map((sideEffect, index) => (
+                  <div key={index} className="mb-6">
+                    <h4 className="font-semibold mb-2">
+                      {sideEffect.side_effect}{" "}
+                      <span className="text-primary">
+                        ({sideEffect.count} mentions)
+                      </span>
+                    </h4>
+                    {sideEffect.side_effect === "Somnolence" && (
+                      <>
+                        <blockquote className="border-l-4 border-base-300 pl-4 mb-2 italic text-sm">
+                          &ldquo;The only way I sleep is when I drink and it's
+                          absolutely horrible&rdquo;
+                        </blockquote>
+                        <blockquote className="border-l-4 border-base-300 pl-4 mb-2 italic text-sm">
+                          &ldquo;really only getting headaches and having a hard
+                          time sleeping&rdquo;
+                        </blockquote>
+                      </>
+                    )}
+                    {sideEffect.side_effect === "Drug Ineffective" && (
+                      <>
+                        <blockquote className="border-l-4 border-base-300 pl-4 mb-2 italic text-sm">
+                          &ldquo;What were his suggestions? I have tried taking
+                          2 weeks break to see if I could lower my tolerance
+                          level but it was not effective.&rdquo;
+                        </blockquote>
+                        <blockquote className="border-l-4 border-base-300 pl-4 mb-2 italic text-sm">
+                          &ldquo;I've been done with schooling for a few years
+                          now and have been working FT for a while&rdquo;
+                        </blockquote>
+                      </>
+                    )}
+                    {sideEffect.side_effect === "Feeling Abnormal" && (
+                      <>
+                        <blockquote className="border-l-4 border-base-300 pl-4 mb-2 italic text-sm">
+                          &ldquo;Who is the manufacturer? I tried a weird
+                          manufacturer during the shortage because that's all my
+                          pharmacy had, and they were horrible&rdquo;
+                        </blockquote>
+                        <blockquote className="border-l-4 border-base-300 pl-4 mb-2 italic text-sm">
+                          &ldquo;I swear it makes me feel like I took molly my
+                          jaw start moving weird, I'll be sitting down inside
+                          and just be dripping sweat, I talk alot, and the shit
+                          makes me stuff DONE 😭&rdquo;
+                        </blockquote>
+                      </>
+                    )}
+                    {sideEffect.side_effect === "Headache" && (
+                      <blockquote className="border-l-4 border-base-300 pl-4 mb-2 italic text-sm">
+                        &ldquo;really only getting headaches and having a hard
+                        time sleeping&rdquo;
+                      </blockquote>
+                    )}
+                    {sideEffect.side_effect === "Fatigue" && (
+                      <blockquote className="border-l-4 border-base-300 pl-4 mb-2 italic text-sm">
+                        &ldquo;How do you replenish your dopamine if they're
+                        exhausted? Thanks for replying.&rdquo;
+                      </blockquote>
+                    )}
+                    {sideEffect.side_effect === "Disturbance In Attention" && (
+                      <blockquote className="border-l-4 border-base-300 pl-4 mb-2 italic text-sm">
+                        &ldquo;I find myself zoning out, not able to listen to
+                        verbal instructions/directions, and trying to do other
+                        tasks while someone is talking to me&rdquo;
+                      </blockquote>
+                    )}
+                    {sideEffect.side_effect === "Nausea" && (
+                      <blockquote className="border-l-4 border-base-300 pl-4 mb-2 italic text-sm">
+                        &ldquo;The info abt this Rx drug indicates that it can
+                        be a serious side effect for some ppl and that at high
+                        doses can cause amphetamine psychosis and other
+                        dangerous side effects&rdquo;
+                      </blockquote>
+                    )}
+                    {sideEffect.side_effect === "Depression" && (
+                      <blockquote className="border-l-4 border-base-300 pl-4 mb-2 italic text-sm">
+                        &ldquo;It's the brand I get the most times and it is
+                        truly depressing every time.&rdquo;
+                      </blockquote>
+                    )}
+                    {sideEffect.side_effect === "Product Quality Issue" && (
+                      <blockquote className="border-l-4 border-base-300 pl-4 mb-2 italic text-sm">
+                        &ldquo;What were his suggestions? I have tried taking 2
+                        weeks break to see if I could lower my tolerance level
+                        but it was not effective.&rdquo;
+                      </blockquote>
+                    )}
+                  </div>
+                ))}
               </div>
 
               {/* In the media */}
@@ -113,32 +212,12 @@ export default function Home() {
                   doses.
                 </p>
 
-                <h4 className="font-semibold mb-2 text-sm">
-                  High Doses of ADHD Medications May Trigger Psychosis
-                </h4>
-                <p className="mb-4 text-sm">
-                  A recent study found that high doses of stimulants like
-                  Adderall can increase the risk of psychosis or mania by more
-                  than fivefold.
-                </p>
-
-                <h4 className="font-semibold mb-2 text-sm">
-                  DEA Shuts Down Drug Factory Amid Adderall Shortage
-                </h4>
-                <p className="mb-4 text-sm">
-                  The DEA has shut down a New York-based drug factory,
-                  exacerbating the ongoing Adderall shortage. The factory was
-                  responsible...
-                </p>
-
-                <h4 className="font-semibold mb-2 text-sm">
-                  Students Continue to Feel the Effects of Adderall Shortage
-                </h4>
-                <p className="mb-4 text-sm">
-                  Nearly two years since the FDA announced a national Adderall
-                  shortage, students are still struggling to access their
-                  prescriptions.
-                </p>
+                {newsSummaries.map((news, index) => (
+                  <div key={index} className="mb-4">
+                    <h4 className="font-semibold mb-2 text-sm">{news.title}</h4>
+                    <p className="mb-4 text-sm">{news.summary}</p>
+                  </div>
+                ))}
               </div>
             </div>
 
