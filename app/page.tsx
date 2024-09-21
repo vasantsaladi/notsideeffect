@@ -40,11 +40,12 @@ export default function Home() {
               Insomnia <span className="text-blue-500">Metric</span>
             </h4>
             <blockquote className="border-l-4 border-gray-300 pl-4 mb-4 italic text-sm">
-              "I can't sleep at all when I take Adderall, even if I take it
-              early in the day."
+              &ldquo;I can&apos;t sleep at all when I take Adderall, even if I
+              take it early in the day.&rdquo;
             </blockquote>
             <blockquote className="border-l-4 border-gray-300 pl-4 mb-4 italic text-sm">
-              "Lack of sleep is making me feel exhausted all the time."
+              &ldquo;Lack of sleep is making me feel exhausted all the
+              time.&rdquo;
             </blockquote>
             <p className="text-sm mb-4">
               Analysis: Many users report difficulties with sleep, indicating a
