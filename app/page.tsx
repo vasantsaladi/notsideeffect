@@ -2,30 +2,79 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  process.env.REACT_APP_SUPABASE_URL,
+  process.env.REACT_APP_SUPABASE_KEY
+)
+
+interface Drug {
+  id: number;
+  genericName: string;
+  brandName: string;
+  effects: string;
+}
+
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
-
-  // Mock data for autocomplete suggestions
-  const drugList = [
-    "Adderall",
-    "Acetaminophen",
-    "Amoxicillin",
-    "Atorvastatin",
-    "Amlodipine",
-    "Albuterol",
-  ];
+  const [drugList, setDrugList] = useState(null);
+  const [drug, setDrug] = useState<Drug | null>(null);
 
   useEffect(() => {
+    console.log("getting drug list...");
+    const getDrugList = async () => {
+      console.log("querying supabase...");
+      const { drugListDB, error } = await supabase
+        .from('drugs')
+        .select()
+      console.log("got drugs:", drugListDB);
+      console.log("error:", error);
+      setDrugList(drugListDB);
+    }
+
+    if(!drugList)
+      getDrugList();
+  }, []);
+
+  useEffect(() => {
+    console.log("searching...", searchTerm);
     if (searchTerm.length > 0) {
-      const filteredSuggestions = drugList.filter((drug) =>
-        drug.toLowerCase().startsWith(searchTerm.toLowerCase())
-      );
-      setSuggestions(filteredSuggestions);
-    } else {
-      setSuggestions([]);
+      console.log("drugList", drugList);
+      if(drugList != null) {
+        const filteredSuggestions = drugList.filter((drug) =>
+          drug.genericName.toLowerCase().contains(searchTerm.toLowerCase()) || 
+          drug.brandName.toLowerCase().contains(searchTerm.toLowerCase()) 
+        );
+        setSuggestions(filteredSuggestions);
+      } else {
+        setSuggestions([]);
+      }
     }
   }, [searchTerm]);
+
+  const getDrugEffects = async () => {
+    const { drugRes, drugError } = await supabase
+        .from('drugs')
+        .select()
+        .or(`genericName.like.${searchTerm},brandName.like.${searchTerm}`)
+        
+
+    const { effectsRes, effectsError } = await supabase
+        .from('effects')
+        .select()
+        .eq('drug_id', drugRes.id) 
+
+    const drugObj = {
+      id: drugRes.id,
+      genericName: drugRes.genericName,
+      brandName: drugRes.brandName,
+      effects: effectsRes.effects
+    }
+
+    setDrug(drugObj); 
+  }
 
   return (
     <div className="min-h-screen bg-base-200">
@@ -37,7 +86,7 @@ export default function Home() {
                 <h1 className="text-4xl font-bold mb-2">
                   Drug safety vigilance for all
                 </h1>
-                <h2 className="text-3xl font-bold">Adderall</h2>
+                <h2 className="text-3xl font-bold">{drug?.brandName} ({drug?.genericName})</h2>
               </div>
               <div className="form-control relative">
                 <input
@@ -46,6 +95,7 @@ export default function Home() {
                   className="input input-bordered input-primary w-full max-w-xs"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
+                  onSubmit={(e) => getDrugEffects()}
                 />
                 {suggestions.length > 0 && (
                   <ul className="menu bg-base-100 w-full p-2 rounded-box shadow-lg absolute top-full left-0 mt-1 z-10">
@@ -67,13 +117,13 @@ export default function Home() {
                 <h3 className="text-xl font-semibold mb-4">
                   Common side effects
                 </h3>
-                <ol className="list-decimal list-inside">
-                  <li>Increased heart rate</li>
-                  <li>Elevated blood pressure</li>
-                  <li>Insomnia</li>
-                  <li>Loss of appetite</li>
-                  <li>Dry mouth</li>
-                </ol>
+                <div>Test: Effects</div>
+                <div>{drug?.effects}</div>
+                {/* <ol className="list-decimal list-inside">
+                  {
+                    <li key={`${drug?.id}-${idx}`}></li>
+                  })}
+                </ol> */}
               </div>
 
               {/* Social sentiment */}
