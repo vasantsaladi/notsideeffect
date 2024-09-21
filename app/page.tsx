@@ -1,121 +1,145 @@
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing FastApi API&nbsp;
-          <Link href="/api/py/helloFastApi">
-            <code className="font-mono font-bold">api/index.py</code>
-          </Link>
-        </p>
-        <p className="fixed right-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing Next.js API&nbsp;
-          <Link href="/api/helloNextJs">
-            <code className="font-mono font-bold">app/api/helloNextJs</code>
-          </Link>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className="bg-gray-100 min-h-screen p-8">
+      <div className="max-w-6xl mx-auto bg-white p-8 shadow-lg rounded-lg">
+        <header className="mb-8">
+          <h1 className="text-4xl font-bold mb-2">
+            Drug safety vigilance for all
+          </h1>
+          <h2 className="text-3xl font-bold">Adderall</h2>
+        </header>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Common side effects */}
+          <div>
+            <h3 className="text-xl font-semibold mb-4">Common side effects</h3>
+            <ol className="list-decimal list-inside">
+              <li>Increased heart rate</li>
+              <li>Elevated blood pressure</li>
+              <li>Insomnia</li>
+              <li>Loss of appetite</li>
+              <li>Dry mouth</li>
+              {/* Add more side effects */}
+            </ol>
+          </div>
+
+          {/* Social sentiment */}
+          <div>
+            <h3 className="text-xl font-semibold mb-4">Social sentiment</h3>
+            <div className="h-32 bg-gray-200 mb-4">
+              {/* Placeholder for chart */}
+            </div>
+            <p className="text-sm mb-4">
+              Ongoing concerns about the availability and safe use of Adderall,
+              especially in high doses.
+            </p>
+
+            <h4 className="font-semibold mb-2">
+              Insomnia <span className="text-blue-500">Metric</span>
+            </h4>
+            <blockquote className="border-l-4 border-gray-300 pl-4 mb-4 italic text-sm">
+              "I can't sleep at all when I take Adderall, even if I take it
+              early in the day."
+            </blockquote>
+            <blockquote className="border-l-4 border-gray-300 pl-4 mb-4 italic text-sm">
+              "Lack of sleep is making me feel exhausted all the time."
+            </blockquote>
+            <p className="text-sm mb-4">
+              Analysis: Many users report difficulties with sleep, indicating a
+              significant negative impact on their well-being.
+            </p>
+
+            {/* Add more social sentiment sections */}
+          </div>
+
+          {/* In the media */}
+          <div>
+            <h3 className="text-xl font-semibold mb-4">In the media</h3>
+            <p className="mb-4 text-sm">
+              Recent news stories highlight ongoing concerns about the
+              availability and safe use of Adderall, especially in high doses.
+            </p>
+
+            <h4 className="font-semibold mb-2 text-sm">
+              High Doses of ADHD Medications May Trigger Psychosis
+            </h4>
+            <p className="mb-4 text-sm">
+              A recent study found that high doses of stimulants like Adderall
+              can increase the risk of psychosis or mania by more than fivefold.
+            </p>
+
+            <h4 className="font-semibold mb-2 text-sm">
+              DEA Shuts Down Drug Factory Amid Adderall Shortage
+            </h4>
+            <p className="mb-4 text-sm">
+              The DEA has shut down a New York-based drug factory, exacerbating
+              the ongoing Adderall shortage. The factory was responsible...
+            </p>
+
+            <h4 className="font-semibold mb-2 text-sm">
+              Students Continue to Feel the Effects of Adderall Shortage
+            </h4>
+            <p className="mb-4 text-sm">
+              Nearly two years since the FDA announced a national Adderall
+              shortage, students are still struggling to access their
+              prescriptions.
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+        {/* Safety signals */}
+        <div className="mt-8">
+          <h3 className="text-xl font-semibold mb-4">Safety signals</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <h4 className="font-semibold mb-2">STRONG ASSOCIATION</h4>
+              <ul className="list-disc list-inside text-sm">
+                <li>Increased heart rate</li>
+                <li>Elevated blood pressure</li>
+                <li>Insomnia</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-2">MODERATE ASSOCIATION</h4>
+              <ul className="list-disc list-inside text-sm">
+                <li>Loss of appetite</li>
+                <li>Dry mouth</li>
+                <li>Nervousness or anxiety</li>
+                <li>Restlessness</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-2">LOWER ASSOCIATION</h4>
+              <ul className="list-disc list-inside text-sm">
+                <li>Headache</li>
+                <li>Stomach pain or nausea</li>
+                <li>Weight loss</li>
+                <li>Dizziness</li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+        {/* User experience input */}
+        <div className="mt-8">
+          <h3 className="text-xl font-semibold mb-4">
+            What has your experience been?
+          </h3>
+          <textarea
+            className="w-full p-2 border border-gray-300 rounded"
+            rows={4}
+          ></textarea>
+        </div>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+        {/* Download data */}
+        <div className="mt-8">
+          <h3 className="text-xl font-semibold mb-4">Download data</h3>
+          <Link href="#" className="text-blue-500 hover:underline">
+            FDA adverse event reports (CSV)
+          </Link>
+        </div>
       </div>
     </main>
   );
